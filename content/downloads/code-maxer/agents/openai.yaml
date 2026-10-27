@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Maxer"
+  short_description: "Choisit les skills adaptés à ton travail de code"
+  default_prompt: "Utilise $code-maxer pour sélectionner les skills adaptés et réaliser cette tâche de développement."

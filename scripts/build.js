@@ -3,10 +3,12 @@
 // Usage: node scripts/build.js           (exit code 1 on any content error)
 const fs = require("fs");
 const path = require("path");
+const zlib = require("zlib");
 
 const ROOT = path.join(__dirname, "..");
 const OUT = path.join(ROOT, "_site");
 const CONTENT = path.join(ROOT, "content");
+const DOWNLOADS = path.join(CONTENT, "downloads");
 
 /* ---------- load ---------- */
 const readJson = f => {
@@ -23,7 +25,7 @@ const skills = skillFiles.map(f => ({ file: f, data: readJson(path.join(CONTENT,
 
 /* ---------- validate ---------- */
 const SKILL_REQUIRED = ["id", "name", "command", "description", "theme", "platform", "why", "yes", "no", "examples"];
-const SKILL_OPTIONAL = ["source", "contact", "glyph", "cover", "year", "related"];
+const SKILL_OPTIONAL = ["source", "contact", "glyph", "cover", "year", "related", "version"];
 const EX_REQUIRED = ["title", "input", "output"];
 const EX_OPTIONAL = ["note", "image"];
 const isText = v => typeof v === "string" && v.trim() !== "";
@@ -49,6 +51,8 @@ themes.forEach((t, i) => {
 });
 
 const skillIds = new Set(skills.map(s => s.data.id));
+const packaged = new Set(fs.existsSync(DOWNLOADS) ? fs.readdirSync(DOWNLOADS).filter(d => fs.statSync(path.join(DOWNLOADS, d)).isDirectory()) : []);
+for (const d of packaged) if (!skillIds.has(d)) fail(`content/downloads/${d}/: no matching content/skills/${d}.json`);
 const seen = new Set();
 for (const { file, data: s } of skills) {
   const where = `content/skills/${file}`;
@@ -64,6 +68,10 @@ for (const { file, data: s } of skills) {
   if (s.contact !== undefined && !isText(s.contact)) fail(`${where}: "contact" must be a name`);
   if (s.cover !== undefined && !(Array.isArray(s.cover) && s.cover.length === 2 && s.cover.every(c => /^#[0-9a-fA-F]{3,8}$/.test(c))))
     fail(`${where}: "cover" must be two hex colors, e.g. ["#C9DAE2", "#E8E2D3"]`);
+  if (packaged.has(s.id)) {
+    if (!/^\d+\.\d+\.\d+$/.test(s.version || "")) fail(`${where}: content/downloads/${s.id}/ exists, so "version" is required (e.g. "1.0.0")`);
+    if (!fs.existsSync(path.join(DOWNLOADS, s.id, "SKILL.md"))) fail(`content/downloads/${s.id}/: missing SKILL.md`);
+  } else if (s.version !== undefined) fail(`${where}: "version" is set but content/downloads/${s.id}/ does not exist`);
   for (const r of s.related || []) if (!skillIds.has(r)) fail(`${where}: related skill "${r}" does not exist`);
   if (!Array.isArray(s.examples) || !s.examples.length) fail(`${where}: "examples" must be a non-empty list`);
   (Array.isArray(s.examples) ? s.examples : []).forEach((ex, i) => {
@@ -108,8 +116,11 @@ const ordered = themes.flatMap(t => skills.map(s => s.data).filter(s => s.theme 
 const coverStyle = s => { const [a, b] = s.cover || ["#E8E2D3", "#DCD5C2"]; return `background:linear-gradient(170deg,${a} 0%,${b} 100%)`; };
 const glyph = s => esc(s.glyph || s.name[0]);
 const askLabel = s => `Ask ${s.contact || "Basile"}`;
-const srcShort = s => s.source ? (new URL(s.source).hostname.endsWith("github.com") ? "GitHub ↗" : new URL(s.source).hostname + " ↗") : askLabel(s);
-const srcLong = s => {
+// Download wins over source, source over "Ask …".
+const zipName = s => `${s.id}-${s.version}.zip`;
+const srcShort = s => packaged.has(s.id) ? `Download v${s.version}` : s.source ? (new URL(s.source).hostname.endsWith("github.com") ? "GitHub ↗" : new URL(s.source).hostname + " ↗") : askLabel(s);
+const srcLong = (s, root) => {
+  if (packaged.has(s.id)) return `<a class="dl" href="${root}downloads/${esc(zipName(s))}" download>Download v${esc(s.version)} ↓</a>`;
   if (!s.source) return `<span class="pending">${esc(askLabel(s))}</span>`;
   const u = new URL(s.source);
   const label = u.hostname.endsWith("github.com") ? u.pathname.replace(/^\/|\/$/g, "") : u.hostname;
@@ -245,7 +256,7 @@ function renderSkill(s, i) {
     </section>
 
     <dl class="facts">
-      <div><dt class="lbl muted">Where to find it</dt><dd>${srcLong(s)}</dd></div>
+      <div><dt class="lbl muted">Where to find it</dt><dd>${srcLong(s, root)}</dd></div>
       <div><dt class="lbl muted">Platform</dt><dd>${esc(s.platform)}</dd></div>
       <div><dt class="lbl muted">Theme</dt><dd>${esc(t.name)}</dd></div>
     </dl>
@@ -291,12 +302,47 @@ function renderSkill(s, i) {
   return page({ root, title: `${s.name} — OpenSkills`, description: s.description, body, script: "skill.js" });
 }
 
+/* ---------- zip ---------- */
+// Minimal deflate zip of a folder; entries are prefixed with the skill id, like Claude's .skill export.
+// Fixed timestamps keep the archive identical between builds.
+function zipFolder(dir, prefix) {
+  const files = [];
+  const walk = d => fs.readdirSync(d).sort().forEach(f => {
+    const full = path.join(d, f);
+    if (fs.statSync(full).isDirectory()) walk(full); else files.push(full);
+  });
+  walk(dir);
+  const locals = [], centrals = [];
+  let offset = 0;
+  for (const full of files) {
+    const name = Buffer.from(prefix + "/" + path.relative(dir, full).split(path.sep).join("/"));
+    const raw = fs.readFileSync(full), data = zlib.deflateRawSync(raw), crc = zlib.crc32(raw);
+    const head = (sig, extra) => {
+      const b = Buffer.alloc(extra ? 46 : 30);
+      let o = 0; const u32 = v => { b.writeUInt32LE(v >>> 0, o); o += 4; }, u16 = v => { b.writeUInt16LE(v, o); o += 2; };
+      u32(sig); if (extra) u16(20); u16(20); u16(0x0800); u16(8); u16(0); u16(0x21);
+      u32(crc); u32(data.length); u32(raw.length); u16(name.length); u16(0);
+      if (extra) { u16(0); u16(0); u16(0); u32(0); u32(offset); }
+      return b;
+    };
+    centrals.push(head(0x02014b50, true), name);
+    const local = Buffer.concat([head(0x04034b50, false), name, data]);
+    locals.push(local); offset += local.length;
+  }
+  const cd = Buffer.concat(centrals), end = Buffer.alloc(22);
+  end.writeUInt32LE(0x06054b50, 0); end.writeUInt16LE(files.length, 8); end.writeUInt16LE(files.length, 10);
+  end.writeUInt32LE(cd.length, 12); end.writeUInt32LE(offset, 16);
+  return Buffer.concat([...locals, cd, end]);
+}
+
 /* ---------- write ---------- */
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 fs.cpSync(path.join(ROOT, "assets"), path.join(OUT, "assets"), { recursive: true });
 fs.cpSync(path.join(CONTENT, "images"), path.join(OUT, "content", "images"), { recursive: true });
 fs.writeFileSync(path.join(OUT, ".nojekyll"), "");
+fs.mkdirSync(path.join(OUT, "downloads"));
+for (const s of ordered) if (packaged.has(s.id)) fs.writeFileSync(path.join(OUT, "downloads", zipName(s)), zipFolder(path.join(DOWNLOADS, s.id), s.id));
 fs.writeFileSync(path.join(OUT, "index.html"), renderHome());
 ordered.forEach((s, i) => {
   fs.mkdirSync(path.join(OUT, "skills", s.id), { recursive: true });

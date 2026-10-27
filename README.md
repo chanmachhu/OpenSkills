@@ -13,6 +13,7 @@ Content lives in JSON files; a dependency-free Node script validates them and ge
 ├── content/                     ← everything editors change
 │   ├── themes.json              ordered list of themes (order = order on the home page)
 │   ├── skills/<id>.json         one file per skill; file name = skill id = URL
+│   ├── downloads/<id>/          the skill itself (SKILL.md + files), zipped at build for the Download button
 │   └── images/<id>/             optional example images for skill <id>
 ├── assets/                      ← look & behavior, shared by all pages
 │   ├── css/style.css            all styles (colors, fonts, layout, dark mode)
@@ -26,7 +27,7 @@ Content lives in JSON files; a dependency-free Node script validates them and ge
 └── _site/                       generated output (git-ignored, never edit)
 ```
 
-Generated URLs: `/` (home) and `/skills/<id>/` (one page per skill, with its own title and description so Slack/Teams link previews show the skill).
+Generated URLs: `/` (home), `/skills/<id>/` (one page per skill, with its own title and description so Slack/Teams link previews show the skill) and `/downloads/<id>-<version>.zip`.
 
 ## Add or edit a skill
 
@@ -82,6 +83,7 @@ Editing is the same: change the file, rebuild, check, push. Renaming a file chan
 | `yes` | yes | "When to use it": about 3 short items. |
 | `no` | yes | "Not really": about 2 short items. |
 | `examples` | yes | List of `{title, input, output}` plus optional `note` (e.g. `illustrative`) and `image` (file name in `content/images/<id>/`). |
+| `version` | if downloadable | `MAJOR.MINOR.PATCH`. Required when `content/downloads/<id>/` exists, forbidden otherwise. |
 | `source` | no | `https://` link where to get the skill (GitHub repo…). |
 | `contact` | no | A person's name, shown as "Ask <name>" when there is no `source`. |
 | `glyph` | no | Big symbol on the cover. Defaults to the first letter of `name`. |
@@ -89,12 +91,23 @@ Editing is the same: change the file, rebuild, check, push. Renaming a file chan
 | `year` | no | Shown in the card's vertical caption. |
 | `related` | no | Ids of other skills, shown as "See also". |
 
-With neither `source` nor `contact`, the page shows **Ask Basile**.
+"Where to find it" shows, in order of priority: a **Download** button if `content/downloads/<id>/` exists, else the `source` link, else "Ask <contact>", else **Ask Basile**.
 
 Text formatting (no HTML, everything is escaped):
 - `why` and `output`: `**bold**`, `` `mono` ``, and lines starting with `- ` become a bullet list.
 - `input`: what the user types; `` `text` `` is highlighted (use it for the command).
 - `\n` in JSON strings is a line break.
+
+## Make a skill downloadable, publish a new version
+
+Skills that are not on GitHub are stored **unzipped** in `content/downloads/<id>/`, so every change to `SKILL.md` shows up as a readable diff in PRs. The build zips each folder into `downloads/<id>-<version>.zip` (entries prefixed with `<id>/`, like Claude's `.skill` export).
+
+- **Add**: unzip the `.skill` / `.zip` you received. Copy the folder that contains `SKILL.md` to `content/downloads/<id>/` (folder name = skill id). Then add `"version": "1.0.0"` to `content/skills/<id>.json`.
+- **New version**: edit the files in `content/downloads/<id>/`, then bump `version` (patch `1.0.1` for a fix, minor `1.1.0` for new behavior, major `2.0.0` when usage changes). The download URL changes with the version, so nobody gets a cached old file.
+- **History**: git keeps every version. `git log -p content/downloads/<id>/` shows what changed. To get an old version, check out that commit.
+- Never commit `.zip` / `.skill` files. The build makes them.
+
+The build fails if a folder has no matching skill JSON, has no `SKILL.md`, or if `version` is missing or set without a folder.
 
 ## Add a theme
 
@@ -126,7 +139,7 @@ The array order is the order of rows on the home page. A theme with no skill is 
 
 ## Run locally
 
-Needs Node 18+ and nothing else (no `npm install`).
+Needs Node 20.15+ and nothing else (no `npm install`).
 
 ```sh
 node scripts/build.js                 # validate + generate _site/
@@ -147,5 +160,6 @@ One-time setup: repository *Settings → Pages → Build and deployment → Sour
 - [ ] Text is English, short, and has no install steps, command lists or "(n)" counters.
 - [ ] The new or changed skill page looks right locally, in light **and** dark mode.
 - [ ] Checked at mobile width (about 390px): no horizontal scroll, examples swipe.
+- [ ] Changed a file in `content/downloads/<id>/`? `version` was bumped.
 - [ ] No file in `_site/` was edited or committed.
 - [ ] If you renamed a skill file: you accept that old shared links break.

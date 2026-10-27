@@ -5,6 +5,7 @@
   "description": "A quick card to explain an IT strategy or enterprise architecture term out loud.",
   "theme": "learn",
   "platform": "Claude",
+  "version": "1.0.0",
   "year": "2026",
   "glyph": "≠",
   "cover": ["#C9DAE2", "#E8E2D3"],
