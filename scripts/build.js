@@ -143,6 +143,8 @@ function page({ root, title, description, body, script }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" href="${root}assets/img/favicon.png">
+<link rel="apple-touch-icon" href="${root}assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="${root}assets/css/style.css">
 <script>try{var t=localStorage.getItem("os-color");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
