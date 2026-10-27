@@ -17,7 +17,7 @@ Content lives in JSON files; a dependency-free Node script validates them and ge
 │   └── images/<id>/             optional example images for skill <id>
 ├── assets/                      ← look & behavior, shared by all pages
 │   ├── css/style.css            all styles (colors, fonts, layout, dark mode)
-│   ├── img/                     favicon (64px) and apple-touch-icon (180px)
+│   ├── img/                     favicon (64px) and apple-touch-icon (180px), from the SIGL logo
 │   └── js/
 │       ├── site.js              every page: light/dark toggle, "/" search shortcut
 │       ├── home.js              home: auto-scrolling carousel, search, theme filter
