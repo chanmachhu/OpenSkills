@@ -1,0 +1,4 @@
+[
+  { "id": "learn", "name": "Learn & review", "description": "Understand fast, keep clean notes." },
+  { "id": "front-end", "name": "Design & front-end", "description": "Interfaces with a real visual direction." }
+]

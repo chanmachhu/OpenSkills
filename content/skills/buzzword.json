@@ -1,0 +1,42 @@
+{
+  "id": "buzzword",
+  "name": "Buzzword",
+  "command": "buzzword",
+  "description": "A quick card to explain an IT strategy or enterprise architecture term out loud.",
+  "theme": "learn",
+  "platform": "Claude",
+  "year": "2026",
+  "glyph": "≠",
+  "cover": ["#C9DAE2", "#E8E2D3"],
+  "why": "Grasp a concept in seconds and **explain it in an interview**: definition, keywords to drop, well-known products, related concepts.",
+  "yes": [
+    "Preparing an IT or architecture interview",
+    "Re-explaining a term heard in a meeting",
+    "Telling two similar concepts apart"
+  ],
+  "no": [
+    "Deep dives into a concept",
+    "Taking class notes (see /note)"
+  ],
+  "examples": [
+    {
+      "title": "A card",
+      "note": "from the skill",
+      "input": "`/buzzword` ESB",
+      "output": "**Enterprise Service Bus (ESB)**\n- Conceptually: a **service-oriented architecture (SOA)** pattern.\n- Technically: **middleware** that handles **routing**, **orchestration** and **transformation** of data between applications.\n- E.g.: TIBCO BusinessWorks, IBM App Connect, MuleSoft.\n- Buzzwords: `< EAI, < SOA, & API Gateway, = Integration Bus, ≠ ETL`"
+    },
+    {
+      "title": "A governance concept",
+      "note": "illustrative",
+      "input": "`/buzzword` FinOps",
+      "output": "**FinOps (Cloud Financial Management)**\n- Conceptually: **financial governance** of the cloud, shared by finance and tech teams.\n- Technically: **cost visibility**, **allocation** per team, **optimization** (reservations, rightsizing).\n- E.g.: AWS Cost Explorer, Azure Cost Management, Apptio Cloudability.\n- Buzzwords: `< Cloud governance, & Showback, & Chargeback`"
+    },
+    {
+      "title": "Saving your cards",
+      "note": "illustrative",
+      "input": "`/buzzword` ESB\n`/buzzword` FinOps\n`/buzzword save`",
+      "output": "`Saved: 2 cards (commit a1b2c3d)`\n`buzzwords/enterprise-service-bus.md`\n`buzzwords/finops.md`"
+    }
+  ],
+  "related": ["note"]
+}

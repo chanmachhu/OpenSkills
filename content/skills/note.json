@@ -1,0 +1,42 @@
+{
+  "id": "note",
+  "name": "Note",
+  "command": "note",
+  "description": "Turns messy notes into one clean page per subject.",
+  "theme": "learn",
+  "platform": "Claude",
+  "year": "2026",
+  "glyph": "✓",
+  "cover": ["#DCD5C2", "#B8C2A6"],
+  "why": "You jot things down during a class; Claude sorts it into **one page per subject**, updated each session, with the key points of every concept so you can **review in 10 seconds**.",
+  "yes": [
+    "Taking notes in a class or a talk",
+    "Merging course material (PDF, slides) with your notes",
+    "Tracking questions asked to speakers"
+  ],
+  "no": [
+    "A formal report to send out",
+    "A one-off definition (see /buzzword)"
+  ],
+  "examples": [
+    {
+      "title": "During class",
+      "note": "fictional",
+      "input": "`/note AIAD`\n`>` Intelligence cycle\n- direction, collection, analysis, dissemination\n`!` the cycle is iterative\nOSINT `?`",
+      "output": "`✓ → Intelligence cycle`\n`✓`\n`✓`\n`✓ OSINT: intelligence gathered from open sources.`"
+    },
+    {
+      "title": "End of session",
+      "note": "fictional",
+      "input": "done",
+      "output": "**Intelligence cycle**: new page, 1 concept · **Reference**: +1 glossary entry.\nThe AIAD page is updated, with no duplicates."
+    },
+    {
+      "title": "Finding your subjects",
+      "note": "fictional",
+      "input": "`/note`",
+      "output": "`Notes · AIAD — Oct 27 — 4 pages`\n`Notes · METH — Oct 21 — 3 pages`"
+    }
+  ],
+  "related": ["buzzword"]
+}

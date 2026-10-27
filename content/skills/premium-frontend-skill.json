@@ -1,0 +1,36 @@
+{
+  "id": "premium-frontend-skill",
+  "name": "Premium Frontend",
+  "command": "premium-frontend-skill",
+  "description": "From a short brief to a polished React interface with React Bits animations.",
+  "theme": "front-end",
+  "platform": "Codex",
+  "year": "2026",
+  "glyph": "</>",
+  "cover": ["#E9805F", "#F4CDB8"],
+  "source": "https://github.com/hamza-hnt/Premium-Frontend-Skill",
+  "why": "Give a React interface a **real visual direction**: the agent picks a style that fits the brief, adds interactions, then reviews the result on desktop and mobile.",
+  "yes": [
+    "Landing pages, portfolios, online shops",
+    "Restyling an existing React app",
+    "Starting from a two-line brief"
+  ],
+  "no": [
+    "Projects not built with React",
+    "Static pages with no interaction"
+  ],
+  "examples": [
+    {
+      "title": "Showcase site",
+      "note": "from the README",
+      "input": "Use `$premium-frontend-skill` to build\na website for a ceramics studio, with\nexpressive interactions and a polished mobile view.",
+      "output": "The agent proposes a direction (palette, type, mood), picks a few animated components, builds the site, then reviews it on desktop and mobile."
+    },
+    {
+      "title": "Calm dashboard",
+      "note": "illustrative",
+      "input": "Use `$premium-frontend-skill` to\nrework our orders dashboard.\nSubtle animations only.",
+      "output": "Same process, with short, stable transitions: readability comes before effects."
+    }
+  ]
+}
