@@ -195,3 +195,7 @@ a.op:hover{border-color:var(--ink)}
   .marquee{-webkit-mask-image:none;mask-image:none}
   *{transition:none!important}
 }
+
+/* download button (skill page) */
+.dl{display:inline-block;font-family:var(--f-mono);font-size:13px;font-weight:600;text-decoration:none;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:999px}
+.dl:hover{background:var(--accent);color:var(--paper)}

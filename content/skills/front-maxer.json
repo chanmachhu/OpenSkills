@@ -1,0 +1,37 @@
+{
+  "id": "front-maxer",
+  "name": "Front Maxer",
+  "command": "front-maxer",
+  "description": "Designs, builds and reviews interfaces by combining UI/UX research, art direction and an ergonomics review.",
+  "theme": "front-end",
+  "platform": "Codex",
+  "version": "1.0.0",
+  "year": "2026",
+  "glyph": "◐",
+  "cover": ["#E7B9A4", "#EFE6D6"],
+  "why": "Three design skills behind one entry point: **UI UX Pro Max** for structure and tokens, **Taste** for art direction on public pages, **Apple Design** for usability. The agent keeps **one coherent direction** and your project's choices. Works on top of those three skills, installed next to it.",
+  "yes": [
+    "Landing pages, portfolios, product pages",
+    "Improving a dashboard without losing its density",
+    "Reviewing the usability of mobile or desktop screens"
+  ],
+  "no": [
+    "Back-end or data work with no interface",
+    "Without the three design skills installed alongside"
+  ],
+  "examples": [
+    {
+      "title": "A landing page",
+      "note": "from the skill",
+      "input": "Use `$front-maxer` to create a\nlanding page for my photo studio.",
+      "output": "The agent sets a direction (layout, type, palette), builds the page, then checks it at small and large sizes, with the keyboard and with reduced motion."
+    },
+    {
+      "title": "A local fix",
+      "note": "from the skill",
+      "input": "Fix the responsive layout of this card\nwith `$front-maxer`, without redoing the page.",
+      "output": "A targeted fix that keeps the surrounding direction: no new palette, no extra animation."
+    }
+  ],
+  "related": ["code-maxer", "premium-frontend-skill"]
+}

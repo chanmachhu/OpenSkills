@@ -1,0 +1,37 @@
+{
+  "id": "code-maxer",
+  "name": "Code Maxer",
+  "command": "code-maxer",
+  "description": "Picks the right specialist skills from a bank of coding skills, then does the coding task with them.",
+  "theme": "dev",
+  "platform": "Codex",
+  "version": "1.0.0",
+  "year": "2026",
+  "glyph": "{ }",
+  "cover": ["#B9C7D9", "#E6E1D4"],
+  "why": "One entry point to a **bank of development skills**: the agent spots the stack and the phase (design, fix, tests, review), loads **the smallest useful set** of specialists, and gets the work done. Works on top of that skill bank, installed next to it.",
+  "yes": [
+    "A coding task where you don't know which skill fits",
+    "Work spanning several layers, like front-end and API",
+    "Debugging, then fixing, in an unfamiliar stack"
+  ],
+  "no": [
+    "A one-line fix you already know how to make",
+    "Without the skill bank installed alongside"
+  ],
+  "examples": [
+    {
+      "title": "Fixing a bug",
+      "note": "illustrative",
+      "input": "Use `$code-maxer` to find why the\nlogin form sometimes double-submits.",
+      "output": "The agent names the skills it picks (a debugging guide and the front-end specialist), traces the cause, fixes it, then says what it checked."
+    },
+    {
+      "title": "A feature across the stack",
+      "note": "illustrative",
+      "input": "Use `$code-maxer` to add CSV export\nto the orders page and its API.",
+      "output": "One specialist per layer, the change on both sides, and the checks that were actually run."
+    }
+  ],
+  "related": ["front-maxer"]
+}

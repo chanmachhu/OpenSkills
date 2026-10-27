@@ -1,0 +1,4 @@
+interface:
+  display_name: "Front Maxer"
+  short_description: "UI/UX, direction artistique et ergonomie frontend"
+  default_prompt: "Utilise $front-maxer pour concevoir ou améliorer cette interface selon mon projet."
