@@ -25,7 +25,7 @@ const skills = skillFiles.map(f => ({ file: f, data: readJson(path.join(CONTENT,
 
 /* ---------- validate ---------- */
 const SKILL_REQUIRED = ["id", "name", "command", "description", "theme", "platform", "why", "yes", "no", "examples"];
-const SKILL_OPTIONAL = ["source", "contact", "glyph", "cover", "year", "related", "version"];
+const SKILL_OPTIONAL = ["source", "contact", "contributor", "glyph", "cover", "year", "related", "version"];
 const EX_REQUIRED = ["title", "input", "output"];
 const EX_OPTIONAL = ["note", "image"];
 const isText = v => typeof v === "string" && v.trim() !== "";
@@ -65,7 +65,7 @@ for (const { file, data: s } of skills) {
   if ("theme" in s && !themeIds.has(s.theme)) fail(`${where}: theme "${s.theme}" is not in content/themes.json`);
   for (const k of ["yes", "no"]) if (k in s && !isTextList(s[k])) fail(`${where}: "${k}" must be a non-empty list of strings`);
   if (s.source !== undefined && !/^https:\/\/\S+$/.test(s.source)) fail(`${where}: "source" must be an https:// URL`);
-  if (s.contact !== undefined && !isText(s.contact)) fail(`${where}: "contact" must be a name`);
+  for (const k of ["contact", "contributor"]) if (s[k] !== undefined && !isText(s[k])) fail(`${where}: "${k}" must be a name`);
   if (s.cover !== undefined && !(Array.isArray(s.cover) && s.cover.length === 2 && s.cover.every(c => /^#[0-9a-fA-F]{3,8}$/.test(c))))
     fail(`${where}: "cover" must be two hex colors, e.g. ["#C9DAE2", "#E8E2D3"]`);
   if (packaged.has(s.id)) {
@@ -260,7 +260,8 @@ function renderSkill(s, i) {
     <dl class="facts">
       <div><dt class="lbl muted">Where to find it</dt><dd>${srcLong(s, root)}</dd></div>
       <div><dt class="lbl muted">Platform</dt><dd>${esc(s.platform)}</dd></div>
-      <div><dt class="lbl muted">Theme</dt><dd>${esc(t.name)}</dd></div>
+      <div><dt class="lbl muted">Theme</dt><dd>${esc(t.name)}</dd></div>${s.contributor ? `
+      <div><dt class="lbl muted">Contributor</dt><dd>${esc(s.contributor)}</dd></div>` : ""}
     </dl>
 
     <section class="block"><h2>What it's for</h2><div>${rich(s.why)}</div></section>

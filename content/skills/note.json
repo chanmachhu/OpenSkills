@@ -5,6 +5,7 @@
   "description": "Turns messy notes into one clean page per subject.",
   "theme": "learn",
   "platform": "Claude",
+  "contributor": "Basile De Sousa",
   "version": "1.0.0",
   "year": "2026",
   "glyph": "✓",

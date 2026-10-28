@@ -5,6 +5,7 @@
   "description": "Picks the right specialist skills from a bank of coding skills, then does the coding task with them.",
   "theme": "dev",
   "platform": "Codex",
+  "contributor": "Hugo Spyropoulos",
   "version": "1.0.0",
   "year": "2026",
   "glyph": "{ }",
