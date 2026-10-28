@@ -5,11 +5,12 @@
   "description": "Answers a question or fact-checks a claim using only checked, dated and independent sources.",
   "theme": "learn",
   "platform": "Claude",
+  "contributor": "Hugo Guillet",
   "version": "1.0.0",
   "year": "2026",
   "glyph": "?",
   "cover": ["#CFD8C9", "#EDE6D6"],
-  "why": "Get an answer you can **trust and trace**: every point comes with its sources, their date and a **confidence level**. For a rumor, a quote or a statistic, you also get where it came from and a **verdict** on it as it was framed.",
+  "why": "Get an answer you can **trust and trace**: every point comes with its sources, their date and a **confidence level**. For a rumor, a quote or a statistic, you also get where it came from and a **verdict** on it as it was framed. Needs web search turned on.",
   "yes": [
     "Checking a viral post, quote or statistic",
     "A factual question where you need the sources",
@@ -32,6 +33,5 @@
       "input": "`/safe-search` When does the next\nFrench presidential election take place?",
       "output": "A direct answer first, then each key point with its confidence level and source numbers, a short \"What I couldn't verify\" section and the sources."
     }
-  ],
-  "related": ["buzzword"]
+  ]
 }

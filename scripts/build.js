@@ -24,8 +24,8 @@ const skillFiles = fs.readdirSync(path.join(CONTENT, "skills")).filter(f => f.en
 const skills = skillFiles.map(f => ({ file: f, data: readJson(path.join(CONTENT, "skills", f)) })).filter(s => s.data);
 
 /* ---------- validate ---------- */
-const SKILL_REQUIRED = ["id", "name", "command", "description", "theme", "platform", "why", "yes", "no", "examples"];
-const SKILL_OPTIONAL = ["source", "contact", "contributor", "glyph", "cover", "year", "related", "version"];
+const SKILL_REQUIRED = ["id", "name", "command", "description", "theme", "platform", "contributor", "why", "yes", "no", "examples"];
+const SKILL_OPTIONAL = ["source", "contact", "glyph", "cover", "year", "related", "version"];
 const EX_REQUIRED = ["title", "input", "output"];
 const EX_OPTIONAL = ["note", "image"];
 const isText = v => typeof v === "string" && v.trim() !== "";

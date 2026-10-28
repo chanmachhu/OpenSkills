@@ -34,6 +34,8 @@ Generated URLs: `/` (home), `/skills/<id>/` (one page per skill, with its own ti
 
 ## Add or edit a skill
 
+Before writing anything, collect the information below from the person adding the skill (see [Questions to ask](#questions-to-ask-before-adding-a-skill)).
+
 1. Create a branch (see [Workflow](#workflow)).
 2. Create `content/skills/<id>.json`. The `<id>` is lowercase letters, digits and dashes (`my-skill`). It becomes the URL `/skills/my-skill/`.
 3. Fill the fields below. Copy an existing skill as a starting point.
@@ -43,6 +45,23 @@ Generated URLs: `/` (home), `/skills/<id>/` (one page per skill, with its own ti
 7. Preview locally (see below), then open a PR.
 
 Editing is the same: change the file, rebuild, check, push. Renaming a file changes the URL and breaks links already shared, so avoid it.
+
+### Questions to ask before adding a skill
+
+Ask them **all in one message**. If the skill's files are provided, read its `SKILL.md` first, draft the answers you can, and ask the person to confirm or correct them instead of asking from scratch.
+
+1. **Contributor**: who created the skill (full name)?
+2. **Where to get it**: a public link (GitHub…), or the files (`.skill` / `.zip`) to make it downloadable? Which version (default `1.0.0`)?
+3. **Platform**: Claude, Codex, other?
+4. **Name and command**: display name, and how it is invoked?
+5. **Theme**: which existing theme (list them)? If none fits, the new theme's name and one-line description.
+6. **What it's for**: in one sentence, and the problem it solves.
+7. **When to use it**: about 3 situations where it shines, and 2 where it doesn't.
+8. **Examples**: 2–3 cases (what you type, what you get). Real or illustrative? Any screenshot?
+9. **Dependencies**: does it need other skills, tools or accounts to work?
+10. **Related skills** already in the catalog, if any.
+
+Don't open the PR while an answer is missing. Never fill a gap with a guess (especially the contributor).
 
 ### Full example
 
@@ -85,11 +104,11 @@ Editing is the same: change the file, rebuild, check, push. Renaming a file chan
 | `description` | yes | **One** sentence. Used on cards and in link previews. |
 | `theme` | yes | A theme `id` from `content/themes.json`. |
 | `platform` | yes | Free text: `Claude`, `Codex`… |
+| `contributor` | yes | Who created the skill (full name), shown as **Contributor**. Ask the author; never guess. |
 | `why` | yes | "What it's for": 1–2 sentences. |
 | `yes` | yes | "When to use it": about 3 short items. |
 | `no` | yes | "Not really": about 2 short items. |
 | `examples` | yes | List of `{title, input, output}` plus optional `note` (e.g. `illustrative`) and `image` (file name in `content/images/<id>/`). |
-| `contributor` | no | Who created the skill (full name). Shown as **Contributor** in the facts row; the column is hidden when empty. |
 | `version` | if downloadable | `MAJOR.MINOR.PATCH`. Required when `content/downloads/<id>/` exists, forbidden otherwise. |
 | `source` | no | `https://` link where to get the skill (GitHub repo…). |
 | `contact` | no | A person's name, shown as "Ask <name>" when there is neither a download nor a `source`. |
@@ -167,7 +186,7 @@ The array order is the order of rows on the home page. A theme with no skill is 
 - **No technical details that will go stale**: no command lists, flags, syntax reference or install steps. Keep usage, situations and examples. Point to `source` for the rest.
 - Keep it short: one-sentence description, about 3 "Yes" and 2 "Not really".
 - Unknown source → leave `source` and `contact` out: the site shows "Ask Basile".
-- `contributor` is the person who created the skill. Unknown → leave it out rather than guessing.
+- `contributor` is the person who created the skill. It is required: ask, never guess.
 - The skill's own files (`content/downloads/<id>/`) are the author's work and may be in any language. Only the site text must be English.
 - No counters in parentheses like "(3)". The build rejects them.
 - Nothing on the site should suggest a skill can be added from the page. Additions happen in this repository.
@@ -214,7 +233,7 @@ One-time setup: repository *Settings → Pages → Build and deployment → Sour
 - [ ] Text is English, short, and has no install steps, command lists or "(n)" counters.
 - [ ] The new or changed skill page looks right locally, in light **and** dark mode.
 - [ ] Checked at mobile width (about 390px): no horizontal scroll, examples swipe.
-- [ ] New skill: `contributor` set (or deliberately left out because unknown).
+- [ ] New skill: every question above was answered by the person adding it; nothing was guessed.
 - [ ] Changed a file in `content/downloads/<id>/`? `version` was bumped, following the table above.
 - [ ] Downloadable skill: the button works locally and the zip contains `<id>/SKILL.md`.
 - [ ] Working on a fresh branch from `main`, not on an already-merged one.
