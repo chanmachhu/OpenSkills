@@ -4,7 +4,7 @@
   "command": "safe-search",
   "description": "Answers a question or fact-checks a claim using only checked, dated and independent sources.",
   "theme": "learn",
-  "platform": "Claude",
+  "platform": "Claude Code",
   "contributor": "Hugo Guillet",
   "year": "2026",
   "glyph": "?",
@@ -12,7 +12,7 @@
     "#CFD8C9",
     "#EDE6D6"
   ],
-  "why": "Get an answer you can **trust and trace**: every point comes with its sources, their date and a **confidence level**. For a rumor, a quote or a statistic, you also get where it came from and a **verdict** on it as it was framed. Ask for a **double check** and small checker agents re-read every cited page before you see the answer. Needs web search turned on.",
+  "why": "Get an answer you can **trust and trace**: every point comes with its sources, their date and a **confidence level**. For a rumor, a quote or a statistic, you also get where it came from and a **verdict** on it as it was framed. Ask for a **double check** and small checker agents re-read every cited page before you see the answer. Installs as a Claude Code plugin, checker agent included; uses only the built-in web search.",
   "yes": [
     "Checking a viral post, quote or statistic",
     "A factual question where you need the sources",
