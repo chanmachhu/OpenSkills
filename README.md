@@ -120,7 +120,7 @@ Don't open the PR while an answer is missing. Never fill a gap with a guess (esp
 "Where to find it" shows, in order of priority: a **Download** button if `content/downloads/<id>/` exists, else the `source` link, else "Ask <contact>", else **Ask Basile**.
 
 Text formatting (no HTML, everything is escaped):
-- `why` and `output`: `**bold**`, `` `mono` ``, lines starting with `- ` become a bullet list, lines starting with `## ` a bold heading, `[label](https://…)` and bare `https://` URLs a link.
+- `why` and `output`: `**bold**`, `` `mono` ``, lines starting with `- ` become a bullet list, `[label](https://…)` a link.
 - `input`: what the user types; `` `text` `` is highlighted (use it for the command).
 - `\n` in JSON strings is a line break.
 
@@ -188,7 +188,7 @@ The array order is the order of rows on the home page. A theme with no skill is 
 - Unknown source → leave `source` and `contact` out: the site shows "Ask Basile".
 - `contributor` is the person who created the skill. It is required: ask, never guess.
 - The skill's own files (`content/downloads/<id>/`) are the author's work and may be in any language. Only the site text must be English.
-- No counters in parentheses like "(3)". The build rejects them (years like "(1906)" are fine).
+- No counters in parentheses like "(3)". The build rejects them.
 - Nothing on the site should suggest a skill can be added from the page. Additions happen in this repository.
 
 ## Design rules
