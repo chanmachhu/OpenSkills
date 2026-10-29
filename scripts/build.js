@@ -96,7 +96,8 @@ if (errors.length) {
 
 /* ---------- render helpers ---------- */
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, '<code>$1</code>');
+// [label](https://…) and bare https:// URLs become links.
+const inline = s => esc(s).replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+)\)|https:\/\/[^\s)\]]*[^\s)\].,;:]/g, (m, label, url) => `<a href="${url || m}" target="_blank" rel="noopener">${label || m}</a>`).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, '<code>$1</code>');
 // Lines starting with "- " become a list, other lines paragraphs.
 function rich(text) {
   let html = "", list = [];

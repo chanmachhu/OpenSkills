@@ -24,6 +24,12 @@
   ],
   "examples": [
     {
+      "title": "The test",
+      "note": "real runs",
+      "input": "5 questions (a quote, an official figure, a myth,\na checkable fact, a recent event), each asked\nwithout the skill, with `/safe-search` and with\n`/safe-search strict`, then fact-checked blind.",
+      "output": "- Confidence: **89.7%** without the skill, **94.3%** standard, **96.6%** strict.\n- Cited sources with a problem: **6 of 10** without the skill, **0 of 32** with it.\n- Same final verdict in all 15 answers: on easy questions the skill mostly **proves** rather than corrects.\n- Strict costs about 1.4× the standard mode.\n[Full test report](https://github.com/chanmachhu/safe-search/blob/main/docs/RAPPORT-test.md) · [All 15 answers](https://github.com/chanmachhu/safe-search/blob/main/docs/REPONSES.md)"
+    },
+    {
       "title": "A misattributed quote",
       "note": "real run",
       "input": "`/safe-search strict` Voltaire a dit : « Je ne suis pas d'accord avec ce que vous dites, mais je me battrai jusqu'à la mort pour que vous ayez le droit de le dire. » C'est vrai ?",

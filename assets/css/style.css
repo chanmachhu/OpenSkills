@@ -150,6 +150,7 @@ a.op:hover{border-color:var(--ink)}
 .ex-in pre{margin:0;font-family:var(--f-mono);font-size:13px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
 .ex-in .c{color:var(--code-hi);font-weight:600}
 .ex-in .d{color:var(--code-dim)}
+.ex-out a{color:inherit;text-decoration:underline;overflow-wrap:anywhere}
 .ex-out ul{margin:6px 0 0;padding-left:18px;display:grid;gap:5px}
 .ex-out p{margin:0 0 8px}
 .ex-out code,.block code{font-family:var(--f-mono);font-size:13px}
