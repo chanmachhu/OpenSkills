@@ -51,7 +51,7 @@ Editing is the same: change the file, rebuild, check, push. Renaming a file chan
 Ask them **all in one message**. If the skill's files are provided, read its `SKILL.md` first, draft the answers you can, and ask the person to confirm or correct them instead of asking from scratch.
 
 1. **Contributor**: who created the skill (full name)?
-2. **Where to get it**: a public link (GitHub…), or the files (`.skill` / `.zip`) to make it downloadable? Which version (default `1.0.0`)?
+2. **Where to get it**: a public link (GitHub…), or the files (`.skill` / `.zip`) to make it downloadable? Is it a single skill or a Claude Code plugin? Which version (default `1.0.0`)?
 3. **Platform**: Claude, Codex, other?
 4. **Name and command**: display name, and how it is invoked?
 5. **Theme**: which existing theme (list them)? If none fits, the new theme's name and one-line description.
@@ -141,6 +141,8 @@ content/downloads/front-maxer/
 2. Find the folder that directly contains `SKILL.md`, and copy **its content** to `content/downloads/<id>/` (folder name = skill id = JSON file name).
    - `.skill` export or skill zip: `<name>/SKILL.md` → copy the `<name>/` folder.
    - Claude plugin zip (`.claude-plugin/plugin.json` + `skills/<name>/SKILL.md`): copy only `skills/<name>/`. The plugin manifest is not needed.
+
+A Claude Code plugin published on GitHub (skill plus agents, hooks or a command) is not downloadable here: set `source` to its repo, `platform` to `Claude Code`, and say in `why` that it installs as a plugin and what else it needs.
 3. In `content/skills/<id>.json`, set `"version": "1.0.0"` (or the version the author gave) and `"contributor"`.
 4. `node scripts/build.js`, then check the button on the local page and open the zip once.
 
