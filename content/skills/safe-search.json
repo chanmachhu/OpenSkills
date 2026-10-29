@@ -4,7 +4,7 @@
   "command": "safe-search",
   "description": "Answers a question or fact-checks a claim using only checked, dated and independent sources.",
   "theme": "learn",
-  "platform": "Claude Code",
+  "platform": "Claude",
   "contributor": "Hugo Guillet",
   "year": "2026",
   "glyph": "?",

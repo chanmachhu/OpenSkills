@@ -5,7 +5,7 @@ Read `README.md` first: structure, skill fields, downloads and versioning, conte
 Essentials:
 - Content changes never touch HTML/JS/CSS. A skill = `content/skills/<id>.json` (id = file name), themes = `content/themes.json`.
 - Downloadable skills: files stored **unzipped** in `content/downloads/<id>/` with `SKILL.md` at its root. For a plugin zip, keep only `skills/<name>/`. The build zips them into `downloads/<id>-<version>.zip`. Never commit `.zip`/`.skill` files.
-- A Claude Code plugin on GitHub: `source` = repo, `platform` = `Claude Code`, no download folder.
+- A Claude Code plugin on GitHub: `source` = repo, no download folder.
 - Versioning: any change in `content/downloads/<id>/` needs a semver bump of `version` in the skill JSON (patch = fix, minor = new ability, major = usage change). The build does not catch a missing bump.
 - Adding a skill: first ask the person **all** the questions in README "Questions to ask before adding a skill", in one message (draft answers from `SKILL.md` when you have it, and ask them to confirm). Don't create the PR while an answer is missing.
 - `contributor` (who created the skill) is required. Never guess it.
