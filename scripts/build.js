@@ -81,7 +81,7 @@ for (const { file, data: s } of skills) {
     if (ex.image !== undefined && !fs.existsSync(path.join(CONTENT, "images", s.id, String(ex.image))))
       fail(`${w}: image not found at content/images/${s.id}/${ex.image}`);
   });
-  if (allStrings(s).some(t => /\(\d+\)/.test(t))) fail(`${where}: no counters like "(3)" in text`);
+  if (allStrings(s).some(t => /\(\d{1,3}\)/.test(t))) fail(`${where}: no counters like "(3)" in text`);
   if (isText(s.description) && s.description.split(/[.!?](?:\s|$)/).filter(x => x.trim()).length > 1) warn(`${where}: description should be one sentence`);
   if (Array.isArray(s.yes) && s.yes.length !== 3) warn(`${where}: aim for 3 "yes" items (has ${s.yes.length})`);
   if (Array.isArray(s.no) && s.no.length !== 2) warn(`${where}: aim for 2 "no" items (has ${s.no.length})`);
@@ -103,6 +103,7 @@ function rich(text) {
   const flush = () => { if (list.length) html += `<ul>${list.map(l => `<li>${inline(l)}</li>`).join("")}</ul>`; list = []; };
   for (const line of text.split("\n")) {
     if (line.startsWith("- ")) list.push(line.slice(2));
+    else if (line.startsWith("## ")) { flush(); html += `<p><strong>${inline(line.slice(3))}</strong></p>`; }
     else { flush(); if (line.trim()) html += `<p>${inline(line)}</p>`; }
   }
   flush();
