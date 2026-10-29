@@ -142,7 +142,7 @@ content/downloads/front-maxer/
    - `.skill` export or skill zip: `<name>/SKILL.md` → copy the `<name>/` folder.
    - Claude plugin zip (`.claude-plugin/plugin.json` + `skills/<name>/SKILL.md`): copy only `skills/<name>/`. The plugin manifest is not needed.
 
-A Claude Code plugin published on GitHub (skill plus agents, hooks or a command) is not downloadable here: set `source` to its repo, `platform` to `Claude Code`, and say in `why` that it installs as a plugin and what else it needs.
+A Claude Code plugin published on GitHub (skill plus agents, hooks or a command) is not downloadable here: set `source` to its repo and say in `why` that it installs as a plugin and what else it needs.
 3. In `content/skills/<id>.json`, set `"version": "1.0.0"` (or the version the author gave) and `"contributor"`.
 4. `node scripts/build.js`, then check the button on the local page and open the zip once.
 
