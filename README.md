@@ -120,7 +120,7 @@ Don't open the PR while an answer is missing. Never fill a gap with a guess (esp
 "Where to find it" shows, in order of priority: a **Download** button if `content/downloads/<id>/` exists, else the `source` link, else "Ask <contact>", else **Ask Basile**.
 
 Text formatting (no HTML, everything is escaped):
-- `why` and `output`: `**bold**`, `` `mono` ``, and lines starting with `- ` become a bullet list.
+- `why` and `output`: `**bold**`, `` `mono` ``, lines starting with `- ` become a bullet list, `[label](https://…)` a link.
 - `input`: what the user types; `` `text` `` is highlighted (use it for the command).
 - `\n` in JSON strings is a line break.
 

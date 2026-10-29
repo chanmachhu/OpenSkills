@@ -1,0 +1,49 @@
+{
+  "id": "noodle",
+  "name": "Noodle",
+  "command": "noodle-diagram",
+  "description": "Turns an architecture described as code into clear, presentation-grade diagrams.",
+  "theme": "dev",
+  "platform": "Claude Code",
+  "contributor": "Brian Perret",
+  "year": "2026",
+  "glyph": "🍜",
+  "cover": [
+    "#F2D6A2",
+    "#E9E3D3"
+  ],
+  "source": "https://github.com/TheGostsniperfr/Noodle",
+  "why": "Diagrams are **generated, not drawn**: the agent reads your code (Helm, Terraform, Kubernetes), writes the system as files, and Noodle draws it with official logos and ports. It **refuses to output a diagram** whose lines cross boxes or whose labels collide. Installs as a Claude Code plugin; PNG export needs draw.io.",
+  "yes": [
+    "Explaining how a request travels through your platform",
+    "A tech stack or service catalogue for a slide",
+    "Keeping a diagram in sync with the code, reviewed in PRs"
+  ],
+  "no": [
+    "A quick whiteboard sketch",
+    "Drawings that are not about a system's architecture"
+  ],
+  "examples": [
+    {
+      "title": "A request path",
+      "note": "real diagram",
+      "input": "Draw how a user request reaches a tenant\napp and what keeps tenants apart, with `noodle`.",
+      "output": "A topology diagram built from the code: each hop with its port, the login flow, and a **Gaps** card where the docs and the code disagree.",
+      "image": "runtime.png"
+    },
+    {
+      "title": "A login sequence",
+      "note": "real diagram",
+      "input": "Show the OIDC login steps of a user\nwithout a session, with `noodle`.",
+      "output": "A sequence diagram that reuses the same model: every request and reply, in order.",
+      "image": "oidc-login.png"
+    },
+    {
+      "title": "A tech stack",
+      "note": "real diagram",
+      "input": "Give me our tech stack on one slide,\nwith `noodle`.",
+      "output": "A landscape view grouped by layer, with planned items marked as such.",
+      "image": "stack.png"
+    }
+  ]
+}
